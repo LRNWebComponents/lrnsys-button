@@ -9,7 +9,7 @@
 ```
 -->
 ```html
-<lrnsys-button></lrnsys-button>
+<lrnsys-button href="https://google.com/" icon="cloud-done" label="Google" hover-class="blue white-text"></lrnsys-button>
 ```
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/lrnsys-button)
