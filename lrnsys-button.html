@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`lrnsys-button`
+A LRN element
+
+@demo demo/index.html
+-->
+
+<dom-module id="lrnsys-button">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[title]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'lrnsys-button',
+
+      properties: {
+        title: {
+          type: String,
+          value: 'lrnsys-button',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
