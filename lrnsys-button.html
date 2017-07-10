@@ -37,9 +37,13 @@ A LRN element
     </style>
     <a href$="[[href]]" tabindex="-1" data-prefetch-hover="[[prefetch]]">
       <paper-button class$="[[class]] [[color]] [[textColor]]">
-        <iron-icon icon$="[[icon]]"></iron-icon>
-        [[label]]
-        <content></content>
+        <template is="dom-if" if="[[icon]]">
+          <iron-icon icon$="[[icon]]"></iron-icon>
+        </template>
+        <span class="label">
+          [[label]]
+          <content></content>
+        </span>
       </paper-button>
     </a>
   </template>
