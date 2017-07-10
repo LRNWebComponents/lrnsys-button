@@ -1,4 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../materializecss-styles/colors.html">
 
 <!--
 `lrnsys-button`
@@ -9,26 +12,85 @@ A LRN element
 
 <dom-module id="lrnsys-button">
   <template>
-    <style>
+    <style include="materializecss-styles-colors">
       :host {
         display: block;
       }
+      a {
+        text-decoration: none;
+      }
+      paper-button iron-icon {
+        height: 3em;
+        margin: 0 .75em;
+      }
+      paper-button {
+        transition: .3s;
+        padding: 0;
+        margin: 0;
+        min-width: .1em;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        text-transform: unset;
+      }
     </style>
-    <h2>[[title]]</h2>
+    <a href="[[href]]" tabindex="-1" data-prefetch-hover="true">
+      <paper-button class$="[[color]] [[textColor]]">
+        <iron-icon icon="[[icon]]"></iron-icon>
+        [[label]]
+      </paper-button>
+    </a>
   </template>
-
   <script>
     Polymer({
-
       is: 'lrnsys-button',
-
+      listeners: {
+        'mouseover': 'hoverOn',
+        'mouseout': 'hoverOff',
+      },
       properties: {
-        title: {
+        href: {
           type: String,
-          value: 'lrnsys-button',
+          value: '#',
+        },
+        label: {
+          type: String,
+        },
+        icon: {
+          type: String,
+        },
+        hoverClass: {
+          type: String,
+        },
+        color: {
+          type: String,
+        },
+        textColor: {
+          type: String,
+        },
+        hoverIconClass: {
+          type: String,
         },
       },
-
+      hoverOn: function(e) {
+        let root = this;
+        if (typeof root.hoverClass !== typeof undefined) {
+          var classes = root.hoverClass.split(' ');
+          classes.forEach(function(item, index) {
+            root.$$('paper-button').classList.add(item);
+          });
+        }
+      },
+      hoverOff: function(e) {
+        let root = this;
+        if (typeof root.hoverClass !== typeof undefined) {
+          var classes = root.hoverClass.split(' ');
+          classes.forEach(function(item, index) {
+            root.$$('paper-button').classList.remove(item);
+          });
+        }
+      },
     });
   </script>
 </dom-module>
