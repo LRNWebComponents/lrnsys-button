@@ -35,7 +35,7 @@ A LRN element
         text-transform: unset;
       }
     </style>
-    <a href$="[[href]]" tabindex="-1">
+    <a href$="[[href]]" tabindex="-1" data-prefetch-hover="[[prefetch]]">
       <paper-button class$="[[color]] [[textColor]]">
         <iron-icon icon$="[[icon]]"></iron-icon>
         [[label]]
@@ -72,6 +72,10 @@ A LRN element
         hoverIconClass: {
           type: String,
         },
+        prefetch: {
+          type: Boolean,
+          value: false,
+        }
       },
       hoverOn: function(e) {
         let root = this;
