@@ -33,10 +33,11 @@ A LRN element
         align-items: center;
         width: 100%;
         text-transform: unset;
+        border-radius: unset;
       }
     </style>
-    <a href$="[[href]]" tabindex="-1" data-prefetch-hover="[[prefetch]]">
-      <paper-button class$="[[class]] [[color]] [[textColor]]">
+    <a href$="[[href]]" tabindex="-1" data-prefetch-hover$="[[prefetch]]">
+      <paper-button raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]">
         <template is="dom-if" if="[[icon]]">
           <iron-icon icon$="[[icon]]"></iron-icon>
         </template>
@@ -50,53 +51,91 @@ A LRN element
   <script>
     Polymer({
       is: 'lrnsys-button',
+      /**
+       * Detect when hovering on our off the element and provide color switching
+       */
       listeners: {
         'mouseover': 'hoverOn',
         'mouseout': 'hoverOff',
       },
       properties: {
+        /**
+         * Standard href pass down
+         */
         href: {
           type: String,
           value: '#',
         },
+        /**
+         * If the button should be visually lifted off the UI.
+         */
+        raised: {
+          type: Boolean,
+        },
+        /**
+         * Label to place in the text area
+         */
         label: {
           type: String,
         },
+        /**
+         * iron-icon to use (with iconset if needed)
+         */
         icon: {
           type: String,
         },
+        /**
+         * Classes to add / subtract based on the item being hovered
+         */
         hoverClass: {
           type: String,
         },
+        /**
+         * materializeCSS color class
+         */
         color: {
           type: String,
         },
+        /**
+         * materializeCSS color class for text
+         */
         textColor: {
           type: String,
         },
-        hoverIconClass: {
-          type: String,
-        },
+        /**
+         * Allow for prefetch data on hover
+         */
         prefetch: {
-          type: Boolean,
-          value: false,
+          type: String,
         }
       },
+      /**
+       * Handle a mouse on event and add the hoverclasses
+       * to the classList array for paper-button.
+       */
       hoverOn: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
           classes.forEach(function(item, index) {
-            root.$$('paper-button').classList.add(item);
+            if (item != '') {
+              root.$$('paper-button').classList.add(item);
+            }
           });
         }
       },
+      /**
+       * Handle a mouse out event and remove the hoverclasses
+       * from the classList array for paper-button.
+       */
       hoverOff: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
           classes.forEach(function(item, index) {
-            root.$$('paper-button').classList.remove(item);
+            if (item != '') {
+              root.$$('paper-button').classList.remove(item);
+            }
           });
         }
       },
