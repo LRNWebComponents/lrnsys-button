@@ -2,6 +2,7 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../materializecss-styles/colors.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
 
 <!--
 `lrnsys-button`
@@ -36,7 +37,7 @@ A LRN element
         border-radius: unset;
       }
     </style>
-    <a href$="[[href]]" tabindex="-1" data-prefetch-hover$="[[prefetch]]">
+    <a id="lrnsys-button-link" href$="[[href]]" tabindex="-1" data-prefetch-hover$="[[prefetch]]">
       <paper-button raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]">
         <template is="dom-if" if="[[icon]]">
           <iron-icon icon$="[[icon]]"></iron-icon>
@@ -47,6 +48,9 @@ A LRN element
         </span>
       </paper-button>
     </a>
+    <template is="dom-if" if="{{alt}}">
+      <paper-tooltip for="lrnsys-button-link" animation-delay="0">{{alt}}</paper-tooltip>
+    </template>
   </template>
   <script>
     Polymer({
@@ -106,6 +110,12 @@ A LRN element
          * Allow for prefetch data on hover
          */
         prefetch: {
+          type: String,
+        },
+        /**
+         * Alt via tooltip.
+         */
+        alt: {
           type: String,
         }
       },
