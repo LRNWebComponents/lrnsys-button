@@ -24,6 +24,9 @@ A LRN element
         height: 3em;
         margin: 0 .75em;
       }
+      .icon-focus {
+        width: 2em;
+      }
       paper-button {
         transition: .3s;
         padding: 0;
@@ -38,9 +41,9 @@ A LRN element
       }
     </style>
     <a id="lrnsys-button-link" href$="[[href]]" tabindex="-1" data-prefetch-hover$="[[prefetch]]">
-      <paper-button raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]">
+      <paper-button id="button" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]">
         <template is="dom-if" if="[[icon]]">
-          <iron-icon icon$="[[icon]]"></iron-icon>
+          <iron-icon icon$="[[icon]]" id="icon"></iron-icon>
         </template>
         <span class="label">
           [[label]]
@@ -59,8 +62,9 @@ A LRN element
        * Detect when hovering on our off the element and provide color switching
        */
       listeners: {
-        'mouseover': 'hoverOn',
-        'mouseout': 'hoverOff',
+        'mouseover': 'focusToggle',
+        'mouseout': 'focusToggle',
+        'button.focused-changed': 'focusToggle',
       },
       properties: {
         /**
@@ -117,37 +121,49 @@ A LRN element
          */
         alt: {
           type: String,
+        },
+        /**
+         * Tracks if focus state is applied
+         */
+        focusState: {
+          type: Boolean,
+          value: false,
         }
       },
       /**
-       * Handle a mouse on event and add the hoverclasses
-       * to the classList array for paper-button.
+       * Handle toggle for mouse class and manage classList array for paper-button.
        */
-      hoverOn: function(e) {
+      focusToggle: function(e) {
         let root = this;
+        if (root.focusState) {
+          if (root.icon) {
+            root.$$('#icon').classList.add('icon-focus');
+          }
+          this.fire('focus-changed', {focus: true});
+        }
+        else {
+          if (root.icon) {
+            root.$$('#icon').classList.remove('icon-focus');
+          }
+          this.fire('focus-changed', {focus: false});
+        }
+        // see if it has hover classes
         if (typeof root.hoverClass !== typeof undefined) {
+          // break class into array
           var classes = root.hoverClass.split(' ');
+          // run through each and add or remove classes
           classes.forEach(function(item, index) {
             if (item != '') {
-              root.$$('paper-button').classList.add(item);
+              if (root.focusState) {
+                root.$$('paper-button').classList.add(item);
+              }
+              else {
+                root.$$('paper-button').classList.remove(item);
+              }
             }
           });
         }
-      },
-      /**
-       * Handle a mouse out event and remove the hoverclasses
-       * from the classList array for paper-button.
-       */
-      hoverOff: function(e) {
-        let root = this;
-        if (typeof root.hoverClass !== typeof undefined) {
-          var classes = root.hoverClass.split(' ');
-          classes.forEach(function(item, index) {
-            if (item != '') {
-              root.$$('paper-button').classList.remove(item);
-            }
-          });
-        }
+        root.focusState = !root.focusState;
       },
     });
   </script>
