@@ -46,16 +46,15 @@ A LRN element
       paper-button span.label {
         height: var(--lrnsys-button-height);
         line-height: var(--lrnsys-button-height);
+        padding-right: .5em;
       }
     </style>
-    <a id="lrnsys-button-link" href$="[[href]]" tabindex="-1" data-prefetch-hover$="[[prefetch]]">
+    <a tabindex="-1" id="lrnsys-button-link" on-tap="_gotoHref" data-prefetch-hover$="[[prefetch]]">
       <paper-button id="button" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]" disabled$="[[disabled]]">
-        <template is="dom-if" if="[[icon]]">
-          <iron-icon icon$="[[icon]]" id="icon"></iron-icon>
-        </template>
+        <iron-icon icon$="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
         <span class="label">
           [[label]]
-          <content></content>
+          <slot></slot>
         </span>
       </paper-button>
     </a>
@@ -102,9 +101,15 @@ A LRN element
           type: String,
         },
         /**
-         * Classes to add / subtract based on the item being hovered
+         * Classes to add / subtract based on the item being hovered.
          */
         hoverClass: {
+          type: String,
+        },
+        /**
+         * Icon class in the event you want it to look different from the text.
+         */
+        iconClass: {
           type: String,
         },
         /**
@@ -146,6 +151,20 @@ A LRN element
           value: false,
         }
       },
+      /**
+       * Go to the href if the button isn't disabled
+       */
+      _gotoHref: function(e) {
+        if (this.disabled) {
+          return false;
+        }
+        else {
+          window.location.href = this.href;
+        }
+      },
+      /**
+       * Class processing on un-tap / hover
+       */
       tapEventOn: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
@@ -159,6 +178,9 @@ A LRN element
           });
         }
       },
+      /**
+       * Undo class processing on un-tap / hover
+       */
       tapEventOff: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
