@@ -184,7 +184,9 @@ A LRN element
           classes.forEach(function(item, index) {
             if (item != '') {
               root.$.button.classList.add(item);
-              root.$.icon.classList.add(item);
+              if (item.indexOf("-") != -1) {
+	            root.$.icon.classList.add(item);
+	          }
             }
           });
         }
@@ -201,7 +203,9 @@ A LRN element
           classes.forEach(function(item, index) {
             if (item != '') {
               root.$.button.classList.remove(item);
-              root.$.icon.classList.remove(item);
+              if (item.indexOf("-") != -1) {
+	            root.$.icon.classList.remove(item);
+	          }
             }
           });
         }
@@ -221,11 +225,15 @@ A LRN element
             if (item != '') {
               if (root.focusState) {
                 root.$.button.classList.add(item);
-                root.$.icon.classList.add(item);
+                if (item.indexOf("-") != -1) {
+		            root.$.icon.classList.add(item);
+		          }
               }
               else {
                 root.$.button.classList.remove(item);
-                root.$.icon.classList.remove(item);
+                if (item.indexOf("-") != -1) {
+		            root.$.icon.classList.remove(item);
+		          }
               }
             }
           });
