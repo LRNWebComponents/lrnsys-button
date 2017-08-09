@@ -41,21 +41,27 @@ A LRN element
       }
       paper-button iron-icon {
         height: var(--lrnsys-button-height);
-        margin: 0 0 0 .75em;
+        margin: 0 .75em;
       }
-      paper-button span.label {
+      paper-button div.inner {
         height: var(--lrnsys-button-height);
         line-height: var(--lrnsys-button-height);
         padding: 0 .75em;
       }
+      paper-button span.label {
+        height: var(--lrnsys-button-height);
+        line-height: var(--lrnsys-button-height);
+      }
     </style>
     <a tabindex="-1" id="lrnsys-button-link" on-tap="_gotoHref" data-prefetch-hover$="[[prefetch]]">
       <paper-button id="button" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]" disabled$="[[disabled]]">
-        <iron-icon icon$="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
-        <span class="label">
-          [[label]]
+        <div class="inner">
+          <iron-icon icon$="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
+          <span class="label" hidden$="[[!label]]">
+            [[label]]
+          </span>
           <slot></slot>
-        </span>
+        </div>
       </paper-button>
     </a>
     <template is="dom-if" if="{{alt}}">
@@ -93,6 +99,7 @@ A LRN element
          */
         label: {
           type: String,
+          value: '',
         },
         /**
          * iron-icon to use (with iconset if needed)
