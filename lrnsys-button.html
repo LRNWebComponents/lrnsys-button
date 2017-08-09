@@ -183,7 +183,8 @@ A LRN element
           // run through each and add or remove classes
           classes.forEach(function(item, index) {
             if (item != '') {
-              root.$$('paper-button').classList.add(item);
+              root.$.button.classList.add(item);
+              root.$.icon.classList.add(item);
             }
           });
         }
@@ -199,7 +200,8 @@ A LRN element
           // run through each and add or remove classes
           classes.forEach(function(item, index) {
             if (item != '') {
-              root.$$('paper-button').classList.remove(item);
+              root.$.button.classList.remove(item);
+              root.$.icon.classList.remove(item);
             }
           });
         }
@@ -218,10 +220,12 @@ A LRN element
           classes.forEach(function(item, index) {
             if (item != '') {
               if (root.focusState) {
-                root.$$('paper-button').classList.add(item);
+                root.$.button.classList.add(item);
+                root.$.icon.classList.add(item);
               }
               else {
-                root.$$('paper-button').classList.remove(item);
+                root.$.button.classList.remove(item);
+                root.$.icon.classList.remove(item);
               }
             }
           });
