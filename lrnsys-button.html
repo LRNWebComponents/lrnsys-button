@@ -57,7 +57,7 @@ A LRN element
     </style>
     <a tabindex="-1" id="lrnsys-button-link" on-tap="_gotoHref" data-prefetch-hover$="[[prefetch]]">
       <paper-button id="button" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]" disabled$="[[disabled]]">
-        <div class="inner">
+        <div class$="inner [[innerClass]]">
           <iron-icon icon$="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
           <span class="label" hidden$="[[!label]]">
             [[label]]
@@ -120,6 +120,12 @@ A LRN element
          * Icon class in the event you want it to look different from the text.
          */
         iconClass: {
+          type: String,
+        },
+        /**
+         * Inner container classes.
+         */
+        innerClass: {
           type: String,
         },
         /**
