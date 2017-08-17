@@ -61,7 +61,7 @@ A LRN element
         padding-left: 0 !important;
       }
     </style>
-    <a tabindex="-1" id="lrnsys-button-link" on-tap="_gotoHref" data-prefetch-hover$="[[prefetch]]">
+    <a tabindex="-1" id="lrnsys-button-link" href$="[[showHref]]" data-prefetch-hover$="[[prefetch]]" target$="[[target]]">
       <paper-button id="button" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]" disabled$="[[disabled]]">
         <div class$="inner [[innerClass]]">
           <iron-icon icon$="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
@@ -96,6 +96,10 @@ A LRN element
           type: String,
           value: '#',
         },
+        showHref: {
+          type: String,
+          value: false,
+        },
         /**
          * If the button should be visually lifted off the UI.
          */
@@ -106,6 +110,10 @@ A LRN element
          * Label to place in the text area
          */
         label: {
+          type: String,
+          value: '',
+        },
+        target: {
           type: String,
           value: '',
         },
@@ -176,12 +184,9 @@ A LRN element
       /**
        * Go to the href if the button isn't disabled
        */
-      _gotoHref: function(e) {
-        if (this.disabled) {
-          return false;
-        }
-        else {
-          window.location.href = this.href;
+      ready: function(e) {
+        if (!this.disabled) {
+          this.showHref = this.href;
         }
       },
       /**
