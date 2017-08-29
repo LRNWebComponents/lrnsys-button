@@ -103,6 +103,7 @@ A LRN element
           value: false,
           notify: true,
           reflectToAttribute: true,
+          computed: '_getShowHref(href,disabled)',
         },
         /**
          * If the button should be visually lifted off the UI.
@@ -188,11 +189,13 @@ A LRN element
         }
       },
       /**
-       * Go to the href if the button isn't disabled
+       * Generate the pass down href if it exists. This helps
+       * ensure that if a button is disabled it won't do anything
+       * even if it has a resource reference.
        */
-      ready: function(e) {
-        if (!this.disabled) {
-          this.showHref = this.href;
+      _getShowHref: function(href, disabled) {
+        if (href && !disabled) {
+          return href;
         }
       },
       /**
