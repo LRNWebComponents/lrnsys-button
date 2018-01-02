@@ -70,7 +70,7 @@ A LRN element
     <a tabindex="-1" id="lrnsys-button-link" href$="[[showHref]]" data-prefetch-hover$="[[prefetch]]" target$="[[target]]">
       <paper-button id="button" title="[[alt]]" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]" disabled$="[[disabled]]">
         <div class$="inner [[innerClass]]">
-          <iron-icon icon$="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
+          <iron-icon icon="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
           <span class="label" hidden$="[[!label]]">
             [[label]]
           </span>
@@ -78,22 +78,11 @@ A LRN element
         </div>
       </paper-button>
     </a>
-    <template is="dom-if" if="[[alt]]">
-      <paper-tooltip for="lrnsys-button-link" animation-delay="0">[[alt]]</paper-tooltip>
-    </template>
+    <paper-tooltip for="lrnsys-button-link" animation-delay="0" hidden$="[[!alt]]">[[alt]]</paper-tooltip>
   </template>
   <script>
     Polymer({
       is: 'lrnsys-button',
-      /**
-       * Detect when hovering on our off the element and provide color switching
-       */
-      listeners: {
-        'mousedown': 'tapEventOn',
-        'mouseover': 'tapEventOn',
-        'mouseout': 'tapEventOff',
-        'button.focused-changed': 'focusToggle',
-      },
       properties: {
         /**
          * Standard href pass down
@@ -101,13 +90,11 @@ A LRN element
         href: {
           type: String,
           value: '#',
-          notify: true,
           reflectToAttribute: true,
         },
         showHref: {
           type: String,
           value: false,
-          notify: true,
           reflectToAttribute: true,
           computed: '_getShowHref(href,disabled)',
         },
@@ -116,7 +103,6 @@ A LRN element
          */
         raised: {
           type: Boolean,
-          notify: true,
           reflectToAttribute: true,
         },
         /**
@@ -198,6 +184,15 @@ A LRN element
         }
       },
       /**
+       * Ready.
+       */
+      ready: function() {
+        this.addEventListener('mousedown', this.tapEventOn);
+        this.addEventListener('mouseover', this.tapEventOn);
+        this.addEventListener('mouseout', this.tapEventOff);
+        this.addEventListener('focused-changed', this.focusToggle);
+      },
+      /**
        * Generate the pass down href if it exists. This helps
        * ensure that if a button is disabled it won't do anything
        * even if it has a resource reference.
@@ -220,8 +215,8 @@ A LRN element
             if (item != '') {
               root.$.button.classList.add(item);
               if (item.indexOf("-") != -1) {
-	            root.$.icon.classList.add(item);
-	          }
+              root.$.icon.classList.add(item);
+            }
             }
           });
         }
@@ -239,8 +234,8 @@ A LRN element
             if (item != '') {
               root.$.button.classList.remove(item);
               if (item.indexOf("-") != -1) {
-	            root.$.icon.classList.remove(item);
-	          }
+              root.$.icon.classList.remove(item);
+            }
             }
           });
         }
@@ -261,14 +256,14 @@ A LRN element
               if (root.focusState) {
                 root.$.button.classList.add(item);
                 if (item.indexOf("-") != -1) {
-		            root.$.icon.classList.add(item);
-		          }
+                root.$.icon.classList.add(item);
+              }
               }
               else {
                 root.$.button.classList.remove(item);
                 if (item.indexOf("-") != -1) {
-		            root.$.icon.classList.remove(item);
-		          }
+                root.$.icon.classList.remove(item);
+              }
               }
             }
           });
