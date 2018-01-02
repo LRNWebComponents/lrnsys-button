@@ -1,0 +1,30 @@
+{
+  "name": "lrnsys-button",
+  "description": "A LRN element",
+  "main": "lrnsys-button.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.9.1",
+    "materializecss-styles": "LRNWebComponents/materializecss-styles#^1.0.0",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^2.0.0",
+    "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-styles": "PolymerElements/paper-styles#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/LRNWebComponents/lrnsys-button",
+  "_release": "8076ccde20",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8076ccde2097f9c8758ab102e08536daf162b085"
+  },
+  "_source": "https://github.com/LRNWebComponents/lrnsys-button.git",
+  "_target": "master",
+  "_originalSource": "LRNWebComponents/lrnsys-button",
+  "_direct": true
+}
