@@ -186,11 +186,11 @@ A LRN element
       /**
        * Ready.
        */
-      ready: function() {
-        this.addEventListener('mousedown', this.tapEventOn);
-        this.addEventListener('mouseover', this.tapEventOn);
-        this.addEventListener('mouseout', this.tapEventOff);
-        this.addEventListener('focused-changed', this.focusToggle);
+      attached: function() {
+        this.addEventListener('mousedown', this.tapEventOn.bind(this));
+        this.addEventListener('mouseover', this.tapEventOn.bind(this));
+        this.addEventListener('mouseout', this.tapEventOff.bind(this));
+        this.$.button.addEventListener('focused-changed', this.focusToggle);
       },
       /**
        * Generate the pass down href if it exists. This helps
@@ -206,7 +206,9 @@ A LRN element
        * Class processing on un-tap / hover
        */
       tapEventOn: function(e) {
-        let root = this;
+        var normalizedEvent = Polymer.dom(e);
+        var local = normalizedEvent.localTarget;
+        let root = local;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
           var classes = root.hoverClass.split(' ');
@@ -215,8 +217,8 @@ A LRN element
             if (item != '') {
               root.$.button.classList.add(item);
               if (item.indexOf("-") != -1) {
-              root.$.icon.classList.add(item);
-            }
+                root.$.icon.classList.add(item);
+              }
             }
           });
         }
@@ -225,7 +227,9 @@ A LRN element
        * Undo class processing on un-tap / hover
        */
       tapEventOff: function(e) {
-        let root = this;
+        var normalizedEvent = Polymer.dom(e);
+        var local = normalizedEvent.localTarget;
+        let root = local;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
           var classes = root.hoverClass.split(' ');
@@ -244,8 +248,8 @@ A LRN element
        * Handle toggle for mouse class and manage classList array for paper-button.
        */
       focusToggle: function(e) {
-        let root = this;
-        this.fire('focus-changed', {focus: root.focusState});
+        let root = Polymer.dom(this).parentNode.parentNode;
+        //root.fire('focus-changed', {focus: root.focusState});
         // see if it has hover classes
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
@@ -253,17 +257,17 @@ A LRN element
           // run through each and add or remove classes
           classes.forEach(function(item, index) {
             if (item != '') {
-              if (root.focusState) {
+              if (!root.focusState) {
                 root.$.button.classList.add(item);
                 if (item.indexOf("-") != -1) {
-                root.$.icon.classList.add(item);
-              }
+                  root.$.icon.classList.add(item);
+                }
               }
               else {
                 root.$.button.classList.remove(item);
                 if (item.indexOf("-") != -1) {
-                root.$.icon.classList.remove(item);
-              }
+                  root.$.icon.classList.remove(item);
+                }
               }
             }
           });
