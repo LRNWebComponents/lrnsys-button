@@ -243,7 +243,8 @@ A LRN element
        * Handle toggle for mouse class and manage classList array for paper-button.
        */
       focusToggle: function(e) {
-        let root = this;
+        // weird but reality... focus event is the button inside of here
+        let root = Polymer.dom(this).parentNode.parentNode;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
           var classes = root.hoverClass.split(' ');
