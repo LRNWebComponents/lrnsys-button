@@ -26,7 +26,6 @@ A LRN element
         color: #000000;
       }
       paper-button {
-        transition: .3s;
         padding: 0;
         margin: 0;
         min-width: .1em;
@@ -206,9 +205,7 @@ A LRN element
        * Class processing on un-tap / hover
        */
       tapEventOn: function(e) {
-        var normalizedEvent = Polymer.dom(e);
-        var local = normalizedEvent.localTarget;
-        let root = local;
+        let root = this;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
           var classes = root.hoverClass.split(' ');
@@ -227,9 +224,7 @@ A LRN element
        * Undo class processing on un-tap / hover
        */
       tapEventOff: function(e) {
-        var normalizedEvent = Polymer.dom(e);
-        var local = normalizedEvent.localTarget;
-        let root = local;
+        let root = this;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
           var classes = root.hoverClass.split(' ');
@@ -248,9 +243,7 @@ A LRN element
        * Handle toggle for mouse class and manage classList array for paper-button.
        */
       focusToggle: function(e) {
-        let root = Polymer.dom(this).parentNode.parentNode;
-        //root.fire('focus-changed', {focus: root.focusState});
-        // see if it has hover classes
+        let root = this;
         if (typeof root.hoverClass !== typeof undefined && !root.disabled) {
           // break class into array
           var classes = root.hoverClass.split(' ');
