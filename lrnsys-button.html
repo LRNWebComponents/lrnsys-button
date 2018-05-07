@@ -67,7 +67,7 @@ A LRN element
       }
     </style>
     <a tabindex="-1" id="lrnsys-button-link" href$="[[showHref]]" data-prefetch-hover$="[[prefetch]]" target$="[[target]]">
-      <paper-button id="button" title="[[alt]]" raised="[[raised]]" class$="[[class]] [[color]] [[textColor]]" disabled$="[[disabled]]">
+      <paper-button id="button" title="[[alt]]" raised="[[raised]]" class$="[[buttonClass]] [[color]] [[textColor]]" disabled$="[[disabled]]">
         <div class$="inner [[innerClass]]">
           <iron-icon icon="[[icon]]" id="icon" class$="[[iconClass]]" hidden$="[[!icon]]"></iron-icon>
           <span class="label" hidden$="[[!label]]">
@@ -129,6 +129,12 @@ A LRN element
          * Classes to add / subtract based on the item being hovered.
          */
         hoverClass: {
+          type: String,
+        },
+        /**
+         * Button class.
+         */
+        buttonClass: {
           type: String,
         },
         /**
